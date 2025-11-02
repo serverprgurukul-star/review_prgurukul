@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Copy, Check, Loader2, ArrowLeft } from "lucide-react";
+import { Copy, Check, Loader2, Star, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -14,8 +14,20 @@ const ReviewReady = () => {
   const { slug, mood } = useParams();
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
-  const moodLevel = parseInt(mood || "3");
+  // const moodLevel = parseInt(mood || "3");
 
+  let moodLevel = 3; // default = neutral
+  if (mood) {
+    if (!isNaN(mood)) {
+      // URL param like /review/slug/4
+      moodLevel = parseInt(mood);
+    } else {
+      // URL param like /review/slug/happy
+      const moodIndex = MOOD_KEYS.indexOf(mood.toLowerCase());
+      moodLevel = moodIndex !== -1 ? moodIndex + 1 : 3;
+    }
+  }
+  console.log(moodLevel);
   // ✅ Fetch business details
   const { data: business, isLoading: isBusinessLoading } = useQuery({
     queryKey: ["business", slug],
@@ -87,50 +99,54 @@ const ReviewReady = () => {
     );
   }
   const handleCopyAndProceed = async () => {
-      if (!reviewText || !business?.google_review_url) return;
-  
-      try {
-        await navigator.clipboard.writeText(reviewText);
-        setCopied(true);
-        toast.success("Review copied! Redirecting to Google...");
-  
-        setTimeout(() => {
-          window.location.href = business.google_review_url;
-        }, 1500);
-      } catch {
-        toast.error("Failed to copy. Please copy manually.");
-      }
-    };
+    if (!reviewText || !business?.google_review_url) return;
+
+    try {
+      await navigator.clipboard.writeText(reviewText);
+      setCopied(true);
+      toast.success("Review copied! Redirecting to Google...");
+
+      setTimeout(() => {
+        window.location.href = business.google_review_url;
+      }, 1500);
+    } catch {
+      toast.error("Failed to copy. Please copy manually.");
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-white">
       {/* Logo */}
       {business.logo_url && (
-        <div className="mb-6 animate-fade-in">
+        <div className="mb-2 animate-fade-in">
           <img
             src={business.logo_url}
             alt={business.business_name}
-            className=" w-[50px] mx-auto"
+            className=" w-[160px] mx-auto"
           />
         </div>
       )}
 
       {/* Heading */}
-      <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
+      <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
         Your review is ready!
       </h1>
 
       {/* Review Card */}
       <div className="w-full max-w-md bg-white rounded-3xl shadow-md p-5 text-center border border-gray-100 animate-fade-in">
-        <div className="flex justify-center mb-3">
-          <span className="text-yellow-400 text-xl">⭐️⭐️⭐️⭐️⭐️</span>
+         <div className="flex justify-center gap-0 mb-3">
+          
+          {[...Array(moodLevel)].map((_, i) => (
+            // <Star key={i} className="text-yellow-400" />
+            <span  className="text-[28px]">⭐</span>
+          ))}
         </div>
 
-        <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
+        <p className="text-gray-700 text-[24px] font-bold  leading-relaxed whitespace-pre-line">
           {reviewText || "We couldn't generate a review right now."}
         </p>
 
-        <p className="text-[11px] mt-3 text-gray-400 italic">
+        <p className="text-[16px] mt-3 text-gray-400 italic">
           ✨ AI-generated review suggestion
         </p>
       </div>
@@ -138,7 +154,7 @@ const ReviewReady = () => {
       {/* Submit Review Button */}
       <button
         onClick={handleCopyAndProceed}
-        className="mt-8 w-full max-w-md bg-gradient-to-r from-[#f5b841] to-[#f7c86a] text-gray-900 font-semibold py-3 rounded-full shadow-lg transition active:scale-95"
+        className="mt-8 w-full max-w-md bg-gradient-to-r from-[#f5b841] to-[#f7c86a] text-gray-900 font-semibold py-3 rounded-full  transition active:scale-95"
       >
         {copied ? (
           <span className="flex justify-center items-center gap-2">
@@ -152,7 +168,9 @@ const ReviewReady = () => {
       </button>
 
       {/* Footer */}
-      <p className="mt-8 text-xs text-gray-500">Product By : Pr.Gurukul</p>
+
+      <img className="w-32" src="/logo.JPG" alt="" />
+      <p className="mt-0 text-xs text-gray-500">Product By : Pr.Gurukul</p>
     </div>
   );
 };
