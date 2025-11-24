@@ -27,6 +27,7 @@ const BusinessForm = ({ business, onClose }: BusinessFormProps) => {
     niche: business?.niche || "",
     googleReviewUrl: business?.google_review_url || "",
     moodImages: business?.mood_images || ["", "", "", "", ""],
+    moodCount: business?.mood_count || 5,
   });
 
   // Utility to generate slug
@@ -108,6 +109,7 @@ const BusinessForm = ({ business, onClose }: BusinessFormProps) => {
         niche: formData.niche,
         google_review_url: formData.googleReviewUrl,
         mood_images: formData.moodImages.filter((url) => url.trim() !== ""),
+        mood_count: formData.moodCount,
       };
 
       if (business) {
@@ -303,8 +305,42 @@ const BusinessForm = ({ business, onClose }: BusinessFormProps) => {
           </div>
         </div>
 
+              
         {/* RIGHT COLUMN: Mood Images */}
         <div className="space-y-6">
+
+          <div className="space-y-3">
+  <Label className="text-gray-700 font-semibold text-base">
+    Number of Moods *
+  </Label>
+  <Select
+    value={String(formData.moodCount)}
+    onValueChange={(v) => {
+      const count = Number(v);
+
+      let updatedImages = [...formData.moodImages].slice(0, count);
+      while (updatedImages.length < count) updatedImages.push("");
+
+      setFormData({
+        ...formData,
+        moodCount: count,
+        moodImages: updatedImages,
+      });
+    }}
+  >
+    <SelectTrigger className="h-12 bg-white border-gray-300">
+      <SelectValue placeholder="Select count" />
+    </SelectTrigger>
+
+    <SelectContent>
+      <SelectItem value="2">2</SelectItem>
+      <SelectItem value="3">3</SelectItem>
+      <SelectItem value="4">4</SelectItem>
+      <SelectItem value="5">5</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+
           <Label className="text-gray-700 font-semibold text-base flex items-center gap-2 mb-2">
             🎨 Mood Images
           </Label>
@@ -313,7 +349,7 @@ const BusinessForm = ({ business, onClose }: BusinessFormProps) => {
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {formData.moodImages.map((url, index) => (
+           {formData.moodImages.slice(0, formData.moodCount).map((url, index) => (
               <div
                 key={index}
                 className="relative bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl p-2 group shadow hover:shadow-lg transition-all"
