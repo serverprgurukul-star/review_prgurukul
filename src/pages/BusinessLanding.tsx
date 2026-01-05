@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 
 const DEFAULT_MOODS = [
   { level: 5, emoji: "😍", label: "Fantastic", color: "from-blue-400 to-blue-600" },
-  { level: 4, emoji: "🙂", label: "loved it", color: "from-green-400 to-green-600" },
-  { level: 3, emoji: "😐", label: "Neutral", color: "from-gray-400 to-gray-600" },
-  { level: 2, emoji: "😕", label: "Average", color: "from-orange-400 to-orange-600" },
-  { level: 1, emoji: "😡", label: "Disappointing", color: "from-red-400 to-red-600" },
+  // { level: 4, emoji: "🙂", label: "loved it", color: "from-green-400 to-green-600" },
+  // { level: 3, emoji: "😐", label: "Neutral", color: "from-gray-400 to-gray-600" },
+  // { level: 2, emoji: "😕", label: "Average", color: "from-orange-400 to-orange-600" },
+  // { level: 1, emoji: "😡", label: "Disappointing", color: "from-red-400 to-red-600" },
 ];
 
 const BusinessLanding = () => {

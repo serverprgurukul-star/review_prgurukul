@@ -12,11 +12,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const moodsList = [
-  { key: "happy", label: "Loved it", icon: Smile, color: "text-green-700", bg: "bg-green-100", border: "border-green-300" },
-  { key: "sad", label: "Disappointing", icon: AlertCircle, color: "text-red-700", bg: "bg-red-100", border: "border-red-300" },
-  { key: "angry", label: "Average", icon: Frown, color: "text-blue-700", bg: "bg-blue-100", border: "border-blue-300" },
+  // { key: "happy", label: "Loved it", icon: Smile, color: "text-green-700", bg: "bg-green-100", border: "border-green-300" },
+  // { key: "sad", label: "Disappointing", icon: AlertCircle, color: "text-red-700", bg: "bg-red-100", border: "border-red-300" },
+  // { key: "angry", label: "Average", icon: Frown, color: "text-blue-700", bg: "bg-blue-100", border: "border-blue-300" },
   { key: "excited", label: "Fantastic", icon: Zap, color: "text-yellow-700", bg: "bg-yellow-100", border: "border-yellow-300" },
-  { key: "neutral", label: "Neutral", icon: Meh, color: "text-gray-700", bg: "bg-gray-100", border: "border-gray-300" },
+  // { key: "neutral", label: "Neutral", icon: Meh, color: "text-gray-700", bg: "bg-gray-100", border: "border-gray-300" },
 ];
 
 const TemplateForm = ({ onSave }: { onSave: () => void }) => {

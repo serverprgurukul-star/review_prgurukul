@@ -82,14 +82,20 @@ const Admin = () => {
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
             >
-              {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {sidebarOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
             </button>
             <div className="flex items-center gap-3">
               <div className="w-14 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center">
-               <img src="/logo.JPG" alt="logo" />
+                <img src="/lo.JPG" alt="logo" />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-gray-900">Admin Dashboard</h1>
+                <h1 className="text-xl font-bold text-gray-900">
+                  Admin Dashboard
+                </h1>
                 <p className="text-xs text-gray-500">Pr.Gurukul</p>
               </div>
             </div>
@@ -122,7 +128,11 @@ const Admin = () => {
           className={`
             fixed lg:static inset-y-0 left-0 z-40 w-64 bg-white h-auto border-r border-gray-200 shadow-lg lg:shadow-none
             transform transition-transform duration-300 ease-in-out
-            ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+            ${
+              sidebarOpen
+                ? "translate-x-0"
+                : "-translate-x-full lg:translate-x-0"
+            }
             mt-[73px] lg:mt-0
           `}
         >
@@ -157,10 +167,8 @@ const Admin = () => {
           {/* Sidebar footer */}
           <div className="absolute bottom-0 left-0 right-0 p-4 border-none border-gray-200 bg-white">
             <div className="text-center">
-              
               <div className="flex items-center justify-center gap-2">
-                
-                   <img className="w-44" src="/logo.JPG" alt="" />
+                <img className="w-44" src="/Logo_3.svg" alt="" />
               </div>
             </div>
           </div>
@@ -181,7 +189,9 @@ const Admin = () => {
             <div className="space-y-6 animate-in fade-in duration-300">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">Business Management</h2>
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    Business Management
+                  </h2>
                   <p className="text-gray-600 text-sm mt-1">
                     Manage your registered businesses and their details
                   </p>

@@ -53,7 +53,8 @@ const AuthForm = () => {
                   NFC Review System
                 </h1>
                 <p className="text-xl text-gray-600 leading-relaxed">
-                  Secure admin portal for managing customer reviews and NFC card generation
+                  Secure admin portal for managing customer reviews and NFC card
+                  generation
                 </p>
               </div>
             </div>
@@ -62,7 +63,7 @@ const AuthForm = () => {
               <p className="text-sm text-gray-500 mb-6">Powered by</p>
               <div className="flex items-center space-x-8">
                 <div className="bg-white px-6 py-3 rounded-lg shadow-sm border-none border-gray-200">
-                  <img className="w-44" src="/logo.JPG" alt="" />
+                  <img className="w-44" src="/Logo_3.svg" alt="" />
                 </div>
                 <div className="bg-white px-6 py-3 rounded-lg shadow-sm border-none border-gray-200">
                   <img
@@ -93,7 +94,10 @@ const AuthForm = () => {
 
                 <form onSubmit={handleLogin} className="space-y-5">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-gray-700 font-medium">
+                    <Label
+                      htmlFor="email"
+                      className="text-gray-700 font-medium"
+                    >
                       Email Address
                     </Label>
                     <div className="relative">

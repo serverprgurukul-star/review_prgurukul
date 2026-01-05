@@ -4,9 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Copy, Check, Loader2, Star, ArrowLeft } from "lucide-react";
 // 💡 Added useEffect for initial review generation
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
-
 
 const MOOD_LABELS = ["Sad", "Angry", "Neutral", "Happy", "Excited"];
 const MOOD_KEYS = ["sad", "angry", "neutral", "happy", "excited"];
@@ -16,8 +15,8 @@ const ReviewReady = () => {
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
   // 💡 State to hold the currently displayed review text
-  const [reviewContent, setReviewContent] = useState(null); 
-  
+  const [reviewContent, setReviewContent] = useState(null);
+
   // --- Mood Level Calculation ---
   let moodLevel = 3; // default = neutral
   if (mood) {
@@ -71,12 +70,12 @@ const ReviewReady = () => {
     const randomIndex = Math.floor(Math.random() * reviews.length);
     return reviews[randomIndex];
   };
-  
+
   // 💡 New function to generate and set the review content
   const generateReview = () => {
     const newReview = getReviewFromTemplate();
     setReviewContent(newReview);
-  }
+  };
 
   // 💡 useEffect to generate the initial review once data is loaded
   useEffect(() => {
@@ -97,8 +96,12 @@ const ReviewReady = () => {
   };
 
   // ✅ Loading state
-  if (isBusinessLoading || isReviewLoading || (!reviewContent && reviewTemplate)) {
-     // 💡 Added check for reviewContent to ensure the initial review is generated
+  if (
+    isBusinessLoading ||
+    isReviewLoading ||
+    (!reviewContent && reviewTemplate)
+  ) {
+    // 💡 Added check for reviewContent to ensure the initial review is generated
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#fffaf3] to-[#f8f5f0]">
         <Loader2 className="h-10 w-10 animate-spin text-yellow-500" />
@@ -117,7 +120,7 @@ const ReviewReady = () => {
       </div>
     );
   }
-  
+
   const handleCopyAndProceed = async () => {
     if (!reviewText || !business?.google_review_url) return;
 
@@ -137,7 +140,7 @@ const ReviewReady = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-white">
       {/* ... (Logo and Heading remain the same) ... */}
-      
+
       {/* Logo */}
       {business.logo_url && (
         <div className="mb-2 animate-fade-in">
@@ -156,11 +159,10 @@ const ReviewReady = () => {
 
       {/* Review Card */}
       <div className="w-full max-w-md bg-white rounded-3xl shadow-md p-5 text-center border border-gray-100 animate-fade-in">
-          <div className="flex justify-center gap-0 mb-3">
-          
+        <div className="flex justify-center gap-0 mb-3">
           {[...Array(moodLevel)].map((_, i) => (
             // <Star key={i} className="text-yellow-400" />
-            <span  className="text-[28px]">⭐</span>
+            <span className="text-[28px]">⭐</span>
           ))}
         </div>
 
@@ -172,16 +174,15 @@ const ReviewReady = () => {
           ✨ AI-generated review suggestion
         </p>
       </div>
-        
+
       {/* 💡 FIXED: Refresh Button now calls the generateReview function */}
       <button
         onClick={generateReview}
         className="mt-8 w-full max-w-md bg-gradient-to-r from-blue-100 to-indigo-100 text-gray-800 font-semibold hover:text-gray-900  py-3 rounded-2xl  transition active:scale-95"
       >
         Get a New Review
-        
       </button>
-      
+
       {/* Submit Review Button */}
       <button
         onClick={handleCopyAndProceed}
@@ -200,8 +201,8 @@ const ReviewReady = () => {
 
       {/* Footer */}
 
-      <img className="w-32" src="/logo.JPG" alt="" />
-      <p className="mt-0 text-xs text-gray-500">Product By : Pr.Gurukul</p>
+      <img className="w-36 mt-12" src="/Logo_3.svg" alt="" />
+     
     </div>
   );
 };
